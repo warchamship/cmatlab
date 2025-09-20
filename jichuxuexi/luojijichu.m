@@ -64,3 +64,4 @@ k1=find(b)
 k2=find(b,2,"last")
 [row,col]=find(b);
 [row,col,v]=find(b)
+

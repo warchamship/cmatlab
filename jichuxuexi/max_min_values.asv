@@ -1,0 +1,5 @@
+function[max,min]=max_min_values(x)
+max=subfuc1(x);  % max的值来自子函数subfuc1的返回结果
+min=subfuc2(x);  % min的值来自子函数subfuc2的返回结果
+function r=subfuc1(x)
+x1=so
