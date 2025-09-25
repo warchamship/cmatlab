@@ -1,0 +1,6 @@
+% x和y是两个向量，使用meshgrid函数生成对应的平面网格，z可以是任意的值，绘制空间曲线
+x=[2:6];
+y=[3:8];
+[X,Y]=meshgrid(x,y);
+Z=randn(size(X));
+plot3(X,Y,Z);

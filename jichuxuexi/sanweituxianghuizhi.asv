@@ -1,0 +1,66 @@
+%三维曲线函数
+% plot3和fplot3
+% plot3(x,y,z) plot(x1,y1,z1,x2,y2,z2,...,xn,yn,zn)
+%例题：绘制空间的螺旋线，其参数方程为x=sint+tcost,y=cost-tsint,z=t
+t=0:0.1:10*pi;
+x=sin(t)+t.*cos(t);
+y=cos(t)-t.*sin(t);
+z=t;
+plot3(x,y,z);
+%绘制sint的三维图
+y=t;
+plot3(t,y,sin(t));
+%对于plot函数来讲，它的参数x,y,z不止可以是一维数组
+%参数x,y,z是同型矩阵时，以x,y,z对应列元素绘制曲线，曲线条数等于矩阵列数
+t=0:0.1:10*pi;
+t=t.';
+x=[t,t,t]
+y=[sin(t),sin(t)+2,sin(t)+4];
+z=[t,t,t];
+plot3(x,y,z);
+%参数x,y,z中有向量，也有矩阵时，向量的长度与矩阵相符(只需要在行或者列一个维度的从长度相等就可以)
+x=t;
+y=[sin(t),sin(t)+2,sin(t)+4];
+z=t;
+plot3(x,y,z);  %此时x和z都是n行1列的向量，y是n行3列的矩阵，两者行数相同
+
+% fplot3(funx,funy,funz,tlims)
+% funx、funy、funz代表定义曲线x、y、z坐标的函数，通常采用函数句柄的形式。tlims为参数函数自变量的取值范围，用二元向量[tmin,tmax]描述，默认为[-5,5],
+%与fplot是几乎完全一致的
+%例题：绘制墨西哥帽顶曲线，其参数方程为：x=e(-t/10)sin5t,y=e(-t/10)cos5t,z=t,t∈[-12,12]
+x=@(t)exp(-t/10).*sin(5*t);
+y=@(t)exp(-t/10).*cos(5*t);
+z=@(t)t;
+fplot3(x,y,z,[-12,12],'-r');  % fplot和fplot3传入的函数都要是句柄形式‘
+
+%三维曲面
+%平面网格数据的生成：
+%（1）利用矩阵运算生成
+%（2）利用meshgrid生成
+%      [X,Y]=meshgrid[x,y]
+%参数x、y为向量(把维度长度分别取为网格的列数和行数)，存储网格点坐标的X、Y为矩阵(一列都是一个数和一行都是一个数)
+x=[2:6];                  % s = size(A)	获取数组所有维度的大小	行向量
+y=[3:8]';                 % s = size(A, dim)	获取数组指定维度的大小	标量
+X=ones(size(y))*x;        % [m, n] = size(A)	分别获取行数和列数	两个标量
+Y=y*ones(size(x));        % [m, n, p, ...] = size(A)	分别获取各维度大小	多个标量
+[X,Y]=meshgrid(x,y);
+X;
+Y;
+%绘制三维曲面的函数
+% mesh(x,y,z,c) surf(x,y,z,c)
+% 其中x,y是网格坐标矩阵，z是网格点的高度矩阵，c用于指定在不同高度下的曲面颜色。c省略时，颜色的设定正比于图形的高度
+%例题：分别绘制三维曲面图和三维曲线图z=xe^-(x²+y²)
+x=-1:0.2:2;
+[X,Y]=meshgrid(x);
+Z=X.*exp(-X.^2-Y.^2);
+plot3(X,Y,Z);   %有16列，绘制出16条曲线。x每列是固定的一个数，y每列
+xlabel('X')
+ylabel('Y')
+zlabel('Z') 
+
+
+
+
+
+
+
